@@ -4,7 +4,8 @@ const Payment = require("../models/payment.model")
 
 function getAll(req,res) {
    const ledgers = Ledger.findAll({
-    attributes: {exclude: ['password']}
+    attributes: {exclude: ['password']},
+    include: Payment
    })
    .then(data => {
     res.send(data);

@@ -5,10 +5,17 @@ const sequelize = require("./src/utils/db").sequelize;
 const app = express();
 const port = 3000;
 const apiRouter = require("./src/routes/api.route");
+const multer = require('multer');
+const upload = multer(); // config
+
 
 const Ledger = require("./src/models/ledger.model")
 const Payment = require("./src/models/payment.model")
 
+
+const associate = require("./src/models/associations")
+
+associate()
 
 
 app.use(bodyParser.json());
@@ -17,6 +24,8 @@ app.use(
     extended: true,
   })
 );
+
+app.use(upload.array());
 
 app.get('/', (req, res) => {
   res.send('Hello World!')

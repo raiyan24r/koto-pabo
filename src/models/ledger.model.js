@@ -1,5 +1,4 @@
 const { DataTypes } = require("sequelize");
-const Payment = require("./payment.model");
 
 const sequelize = require("../utils/db").sequelize;
 
@@ -45,7 +44,5 @@ const Ledger = sequelize.define(
         tableName: "ledgers"
     }
 )
-
-Ledger.hasMany(Payment, {foreignKey: "ledger_id"})
 
 module.exports = Ledger;
