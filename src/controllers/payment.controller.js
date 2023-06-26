@@ -8,7 +8,10 @@ async function create(req,res) {
 
     var uploadedFile = await imageProcess(req,req.body.id)
    
-    req.body.file = uploadedFile
+    if (uploadedFile != '') {
+        req.body.image = uploadedFile
+    }
+
     res.send(req.body)
     return
     // const id = req.body.id;
