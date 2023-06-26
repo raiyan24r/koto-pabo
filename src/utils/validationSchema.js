@@ -1,4 +1,4 @@
-const { body, check, custom } = require('express-validator');
+const { check } = require('express-validator');
 
 exports.paymentCreateValidator = [
     check('link', 'Link is required').notEmpty().isString(),
@@ -17,9 +17,4 @@ exports.paymentCreateValidator = [
     check('title').notEmpty().optional(),
     check('details').notEmpty().optional(),
     check('details').notEmpty().optional(),
-    check('image').custom(value => {
-        
-    }),
 ]
-
-

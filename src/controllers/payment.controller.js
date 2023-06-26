@@ -2,9 +2,13 @@ const Payment = require("../models/payment.model")
 const Ledger = require("../models/ledger.model")
 
 const responseMessage = require("../utils/response.msg")
+const sharp = require("sharp")
 
 async function create(req,res) {
 
+    var uploadedFile = await imageProcess(req,req.body.id)
+   
+    req.body.file = uploadedFile
     res.send(req.body)
     return
     // const id = req.body.id;
@@ -50,6 +54,34 @@ async function create(req,res) {
     //          err.message || "Error"
     //  });
     // });
+ }
+
+
+
+ const imageProcess = async (req, uniqueId = (Math.random() * (9999 - 100) + 100)) => {
+
+    if(!req.file) {
+        return ''
+    }
+
+    const formatedName = req.file.originalname.split(' ').join('-');
+    const fileName = `${uniqueId}-${formatedName}`;
+
+    try {
+        await sharp(req.file.buffer)
+        .metadata()
+        .then(({ width }) => sharp(req.file.buffer)
+            .resize(Math.round(width * 0.6))
+            .toFile(`./data/uploads/${fileName}`)
+        );
+
+        return fileName
+    } catch (err) {
+        console.log('error',err)
+        return 'error'
+    }
+
+
  }
 
  module.exports = {
