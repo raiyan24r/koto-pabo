@@ -5,15 +5,14 @@ const responseMessage = require("../utils/response.msg")
 const sharp = require("sharp")
 
 async function create(req,res) {
-
     var uploadedFile = await imageProcess(req,req.body.id)
    
     if (uploadedFile != '') {
         req.body.image = uploadedFile
     }
 
-    res.send(req.body)
-    return
+    // res.send(req.body)
+    // return
     // const id = req.body.id;
     // const link = req.body.link;
 
@@ -37,13 +36,18 @@ async function create(req,res) {
     
 
     var paymentEntry = req.body
-
-    if(paymentEntry.hasOwnProperty('amount') && paymentEntry.hasOwnProperty)
-
-
-    delete
-   
-    Payment.create()
+    
+    // res.send(paymentEntry)
+    Payment.create(paymentEntry)
+      .then(data => {
+        res.send('log');
+       })
+       .catch(err => {
+        res.status(500).send({
+            message:
+                err.message || "Error"
+        });
+       });
 
     // const ledgers = Ledger.findAll({
     //  attributes: {exclude: ['password']}

@@ -1,4 +1,4 @@
-const { check } = require('express-validator');
+const { check, body } = require('express-validator');
 
 exports.paymentCreateValidator = [
     check('link', 'Link is required').notEmpty().isString(),
@@ -17,4 +17,10 @@ exports.paymentCreateValidator = [
     check('title').notEmpty().optional(),
     check('details').notEmpty().optional(),
     check('details').notEmpty().optional(),
+]
+
+exports.ledgerCreateValidator = [
+    body('name', 'You must give a name for the ledger').exists().notEmpty(),
+    body('participant_1', 'Please provide a name for the first ledger participant').exists().notEmpty(),
+    body('participant_2', 'Please provide a name for the second ledger participant').exists().notEmpty(),
 ]

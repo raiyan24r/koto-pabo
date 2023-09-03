@@ -18,14 +18,14 @@ const associate = require("./src/models/associations")
 associate()
 
 
-app.use(bodyParser.json());
 app.use(
   bodyParser.urlencoded({
-    extended: true,
+    extended: false,
   })
 );
+app.use(bodyParser.json());
 
-// app.use(upload.array());
+
 
 app.get('/', (req, res) => {
   res.send('Hello World!')
